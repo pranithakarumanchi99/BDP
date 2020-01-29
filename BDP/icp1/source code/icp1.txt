@@ -1,0 +1,24 @@
+1)creating directory in hdfs cloudera
+
+$ hadoop fs -mkdir /home/cloudera/pranitha1
+
+2) Moving firstfile to hdfs cloudera 
+
+$ hadoop fs -put /home/cloudera/Downloads/word_list.txt /user/cloudera/pranitha1
+
+3) Appending Second file to First file
+
+$ hadoop fs -appendToFile /home/cloudera/Downloads/shakespeare.txt /user/cloudera/pranitha/word_list.txt
+
+4) Five 5 lines and Last five lines of merged file and saving output in new file 
+
+$ hdfs dfs -cat /user/cloudera/pranitha1/word_list.txt | head -n 5 > Five5555.txt
+$ hdfs dfs -cat /user/cloudera/pranitha1/word_list.txt | tail -5 > Last5.txt
+
+5) Merging First and Last five lines files into one 
+
+$ hdfs dfs -cat Last5.txt First5.txt > merged.txt
+
+6) Appending Merged.txt to new file(Thirdfile.txt in hdfs cloudera)
+  
+$ hadoop fs -appendToFile merged.txt /user/cloudera/pranitha1/Thirdfile.txt
