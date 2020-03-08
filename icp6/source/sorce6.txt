@@ -1,0 +1,14 @@
+Books:
+
+solrctl instancedir --generate  /tmp/books
+solrctl instancedir --create books /tmp/books
+solrctl collection --create books
+
+gedit /tmp/books/conf/schema.xml
+
+Films: 
+solrctl instancedir --generate  /tmp/films
+solrctl instancedir --create films /tmp/films
+solrctl collection --create films
+
+gedit /tmp/films/conf/schema.xml
