@@ -1,0 +1,101 @@
+
+// CREATING KEYSPACE test
+
+CREATE KEYSPACE test WITH REPLICATION={'class':'SimpleStrategy','replication_factor':1};
+
+
+//USING KEYSPACE
+
+USE test;
+
+
+// creating table 
+drop table if exists employees1;
+
+CREATE TABLE employees1(
+	employee_id int,
+	department text,
+	last_name text,
+	years_with_company int,
+	hire_date date,
+	job_title text,
+	salary int,
+	manager_id int,
+	PRIMARY KEY(employee_id)
+);
+
+insert into employees1 (employee_id, department, last_name, years_with_company,hire_date,job_title,salary,manager_id) values (1,'Engineering','stevens',1,'2000-02-18','manager',50000,2);
+
+insert into employees1(employee_id, department, last_name, years_with_company,hire_date,job_title,salary,manager_id) values(2,'Engineering','jacob',2,'1999-06-11','manager',70000,0);
+
+insert into employees1(employee_id, department, last_name, years_with_company,hire_date,job_title,salary,manager_id) values(3,'Marketing','rajesh',3,'1996-03-21','teamlead',80000,5);
+
+insert into employees1(employee_id, department, last_name, years_with_company,hire_date,job_title,salary,manager_id) values(4,'Sales','cidric',1,'2003-09-21','softwareengineer',45000,6);
+
+insert into employees1(employee_id, department, last_name, years_with_company,hire_date,job_title,salary,manager_id) values(5,'Engineering','kennedy',2,'2011-09-23','testengineer',20000,7);
+
+insert into employees1(employee_id, department, last_name, years_with_company,hire_date,job_title,salary,manager_id) values(6,'Engineering','sabari',2,'2009-08-09','engineer',80000,8);
+
+insert into employees1(employee_id, department, last_name, years_with_company,hire_date,job_title,salary,manager_id) values(7,'Sales','cena',2,'2010-01-07','teamlead',12200,3);
+
+insert into employees1(employee_id, department, last_name, years_with_company,hire_date,job_title,salary,manager_id) values(8,'Sales','brock',8,'2008-01-07','teamlead',19220,1);
+
+
+
+// All queries :
+
+select employee_id,last_name,job_title,hire_date from employees1 ALLOW FILTERING;
+
+
+//2
+select last_name,salary from employees1 where job_title = 'CLERK' ALLOW FILTERING;
+
+//3
+select last_name,job_title,salary from employees1 where hire_date = '2000-02-18' ALLOW FILTERING;
+
+//4
+select last_name, salary from employees1 ALLOW FILTERING;
+
+//5
+select last_name,salary,manager_id from employees1 where salary = 45000 ALLOW FILTERING;
+
+
+
+//Bonus 
+
+drop table if exists employees;
+
+CREATE TABLE employees (
+	employee_id int,
+	department text,
+	last_name text,
+	years_with_company int,
+	hire_date date,
+	job_title text,
+	salary int,
+	manager_id int,
+	PRIMARY KEY(employee_id)
+);
+
+
+//copy data into table from file
+
+COPY employees(employee_id,department,last_name,years_with_company,hire_date,
+job_title,salary,manager_id) from 'C:\Users\ahame\Desktop\employee_entries.csv' with HEADER=TRUE AND DELIMITER='|';
+
+//EXECUTING CQL FOR ALL QUERIES "ALLQUERIES.TXT" CONATINS ALLL THE FIVE QUERIES	
+	
+SOURCE 'C:\Users\ahame\Desktop\icp7\ALLQUERIES.TXT';
+
+//Index for last_name
+
+create custom index BONUSINDEX on employees(last_name) using 'org.apache.cassandra.index.sasi.SASIIndex';
+
+//LAST NAMES STATING WITH LETTER J,S,G
+
+SELECT last_name,count(*) from employees where last_name like 'j%' allow filtering;
+SELECT last_name,count(*) from employees where last_name like 'G%' allow filtering;
+SELECT last_name,count(*) from employees where last_name like 's%' allow filtering;	
+	
+	
+	

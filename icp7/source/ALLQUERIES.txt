@@ -1,0 +1,19 @@
+USE AHAMEDRAZI;
+
+
+//1
+select employee_id,last_name,job_title,hire_date from employees ALLOW FILTERING;
+
+
+//2
+select last_name,salary from employees where job_title = 'CLERK' ALLOW FILTERING;
+
+//3
+select last_name,job_title,salary from employees where hire_date = '2000-02-18' ALLOW FILTERING;
+
+//4
+select last_name, salary from employees ALLOW FILTERING;
+
+//5
+select last_name,salary,manager_id from employees where salary = 45000 ALLOW FILTERING;
+
