@@ -1,0 +1,4 @@
+car,honda,black
+car,honda,red
+car,bmw,red
+car,bmw,black
